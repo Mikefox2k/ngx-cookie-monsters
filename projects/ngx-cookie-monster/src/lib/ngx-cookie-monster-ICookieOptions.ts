@@ -1,6 +1,8 @@
 import {CookieOptions} from './ngx-cookie-monster-options.model';
 
 export interface NgxCookieMonsterICookieOptions {
+  exists(key: string): boolean;
+
   get(key: string): string;
 
   getObject(key: string): Object;

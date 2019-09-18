@@ -27,6 +27,10 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     document.cookie = val;
   }
 
+  exists(key: string): boolean {
+    return !!this.get(key);
+  }
+
   create(key: string, value: string, options?: CookieOptions): void {
     this._cookieWriter()(key, value, options);
   }
