@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CookieOptions} from './cookie-options.model';
 import {CookieProvider} from './cookie-provider';
 import {ICookieOptions} from './ICookieOptions';
+import {empty, isNumber, isString, merge, safeDecodeURIComponent, safeJsonParse} from './ext';
 
 declare interface Document {
   cookie: string;
@@ -30,31 +31,97 @@ export class NgxCookieMonsterService implements ICookieOptions{
   }
 
   create(key: string, value: string, options?: CookieOptions): void {
+    this._cookieWriter()(key, value, options);
+  }
+
+  createFromObject(key: string, value: Object, options?: CookieOptions): void {
+    this.create(key, JSON.stringify(value), options);
   }
 
   delete(key: string, options?: CookieOptions): void {
+    this._cookieWriter()(key, undefined, options);
   }
 
   deleteAll(options?: CookieOptions): void {
+    const cookies = this.getAll();
+    Object.keys(cookies).forEach(key => {
+      this.delete(key, options);
+    });
   }
 
   get(key: string): string {
-    return "";
+    return (<any>this._cookieReader())[key];
   }
 
   getAll(): Object {
-    return undefined;
+    return <any>this._cookieReader();
   }
 
   getObject(key: string): Object {
-    return undefined;
-  }
-
-  update(key: string, value: string, options?: CookieOptions): void {
+    const value = this.get(key);
+    return value ? safeJsonParse(value) : value;
   }
 
   updateOptions(key: string, options?: CookieOptions): void {
+    const tempCookie = this.getObject(key);
+    this.createFromObject(key, tempCookie, options);
   }
 
+  private _cookieReader(): Object {
+    let lastCookies = {};
+    let lastCookieString = '';
+    let cookieArray: string[], cookie: string, i: number, index: number, name: string;
+    const currentCookieString = this.cookieString;
+    if (currentCookieString !== lastCookieString) {
+      lastCookieString = currentCookieString;
+      cookieArray = lastCookieString.split('; ');
+      lastCookies = {};
+      for (i = 0; i < cookieArray.length; i++) {
+        cookie = cookieArray[i];
+        index = cookie.indexOf('=');
+        if (index > 0) {
+          name = safeDecodeURIComponent(cookie.substring(0, index));
+          if (empty((<any>lastCookies)[name])) {
+            (<any>lastCookies)[name] = safeDecodeURIComponent(cookie.substring(index + 1));
+          }
+        }
+      }
+    }
+    return lastCookies;
+  }
+
+  private _cookieWriter() {
+    const self = this;
+
+    return function (name: string, value: string, options?: CookieOptions) {
+      self.cookieString = self._buildCookieString(name, value, options);
+    };
+  }
+
+  private _buildCookieString(name: string, value: string, options?: CookieOptions): string {
+    const opts: CookieOptions = merge(this.options, options);
+    let expires: any = opts.expires;
+    if (empty(value)) {
+      expires = 'Thu, 01 Jan 1970 00:00:00 GMT';
+      value = '';
+    }
+    if (isString(expires) || isNumber(expires)) {
+      expires = new Date(expires);
+    }
+    const cookieValue = opts.storeUnencoded ? value : encodeURIComponent(value);
+    let str = encodeURIComponent(name) + '=' + cookieValue;
+    str += opts.path ? ';path=' + opts.path : '';
+    str += opts.domain ? ';domain=' + opts.domain : '';
+    str += expires ? ';expires=' + expires.toUTCString() : '';
+    str += opts.sameSite ? ';samesite=' + opts.sameSite : '';
+    str += opts.secure ? ';secure' : '';
+    str += opts.httpOnly ? '; HttpOnly' : '';
+
+    const cookieLength = str.length + 1;
+    if (cookieLength > 4096) {
+      console.warn(`Cookie \'${name}\' possibly not set or overflowed because it was too large (${cookieLength} > 4096 bytes)!`);
+    }
+    return str;
+  }
 
 }
