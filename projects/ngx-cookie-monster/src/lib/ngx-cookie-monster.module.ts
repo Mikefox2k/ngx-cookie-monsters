@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
-import { NgxCookieMonsterComponent } from './ngx-cookie-monster.component';
-
+import {NgModule} from '@angular/core';
 
 
 @NgModule({
-  declarations: [NgxCookieMonsterComponent],
-  imports: [
-  ],
-  exports: [NgxCookieMonsterComponent]
+  declarations: [],
+  imports: [],
+  exports: []
 })
-export class NgxCookieMonsterModule { }
+export class NgxCookieMonsterModule {
+}
