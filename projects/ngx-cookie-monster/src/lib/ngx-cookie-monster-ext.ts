@@ -13,24 +13,25 @@ export function convertToDate(time: number | string): Date {
 }
 
 export function merge(options: CookieOptions, newOptions?: CookieOptions): CookieOptions {
-  if (!newOptions) {
-    return options;
+  if (newOptions) {
+    return {
+      domain: exists(newOptions.domain) ? newOptions.domain : options.domain,
+      path: exists(newOptions.path) ? newOptions.path : options.path,
+      expires: exists(newOptions.expires) ? newOptions.expires : options.expires,
+      secure: exists(newOptions.secure) ? newOptions.secure : options.secure,
+      httpOnly: exists(newOptions.httpOnly) ? newOptions.httpOnly : options.httpOnly,
+      storeUnencoded: exists(newOptions.storeUnencoded) ? newOptions.storeUnencoded : options.storeUnencoded,
+      sameSite: exists(newOptions.sameSite) ? newOptions.sameSite : options.sameSite
+    };
   }
-  return {
-    domain: exists(newOptions.domain) ? newOptions.domain : options.domain,
-    path: exists(newOptions.path) ? newOptions.path : options.path,
-    expires: exists(newOptions.expires) ? newOptions.expires : options.expires,
-    secure: exists(newOptions.secure) ? newOptions.secure : options.secure,
-    httpOnly: exists(newOptions.httpOnly) ? newOptions.httpOnly : options.httpOnly,
-    storeUnencoded: exists(newOptions.storeUnencoded) ? newOptions.storeUnencoded : options.storeUnencoded,
-    sameSite: exists(newOptions.sameSite) ? newOptions.sameSite : options.sameSite
-  };
+  return options;
 }
 
 export function safeDecodeURIComponent(str: string) {
   try {
     return decodeURIComponent(str);
   } catch (e) {
+    console.error(e);
     return str;
   }
 }
@@ -39,6 +40,7 @@ export function safeJsonParse(str: string) {
   try {
     return JSON.parse(str);
   } catch (e) {
+    console.error(e);
     return str;
   }
 }
