@@ -9,7 +9,7 @@ import {ngxCookieMonsterFactory} from './ngx-cookie-monster-factory';
 })
 export class CookieModule {
   /**
-   * Use this method  to provide the CookieService
+   * Use this method to provide the CookieService
    */
   static forRoot(options: CookieOptions = {}): ModuleWithProviders {
     return {
