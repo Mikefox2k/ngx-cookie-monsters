@@ -18,4 +18,7 @@ export interface NgxCookieMonsterICookieOptions {
   delete(key: string, options?: CookieOptions): void;
 
   deleteAll(options?: CookieOptions): void;
+
+  createCookieOptions(domain: string, path: string, expires: Date, secure: boolean, httpOnly: boolean,
+                      storeUnencoded: boolean, sameSite: 'none' | 'lax' | 'strict'): CookieOptions;
 }

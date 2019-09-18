@@ -68,6 +68,19 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     this.createFromObject(key, tempCookie, options);
   }
 
+  createCookieOptions(domain: string, path: string, expires: string | number | Date, secure: boolean, httpOnly: boolean,
+                      storeUnencoded: boolean, sameSite: "none" | "lax" | "strict"): CookieOptions {
+    return {
+      domain: domain,
+      path: path,
+      expires: expires,
+      secure: secure,
+      httpOnly: httpOnly,
+      storeUnencoded: storeUnencoded,
+      sameSite: sameSite
+    };
+  }
+
   private _cookieReader(): Object {
     let lastCookies = {};
     let lastCookieString = '';
