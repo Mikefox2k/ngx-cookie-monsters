@@ -17,7 +17,7 @@ export function isNumber(item: any): boolean {
 }
 
 export function convertToDate(time: number | string): Date {
-  return (new Date(time));
+  return new Date(time);
 }
 
 export function merge(options: CookieOptions, newOptions?: CookieOptions): CookieOptions {
