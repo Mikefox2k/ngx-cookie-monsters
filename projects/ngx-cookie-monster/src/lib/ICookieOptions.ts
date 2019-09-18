@@ -5,7 +5,7 @@ export interface ICookieOptions {
   getObject(key: string): Object;
   getAll(): Object;
   create(key: string, value: string, options?: CookieOptions): void;
-  update(key: string, value: string, options?: CookieOptions): void;
+  createFromObject(key: string, value: Object, options?: CookieOptions): void;
   updateOptions(key: string, options?: CookieOptions): void;
   delete(key: string, options?: CookieOptions): void;
   deleteAll(options?: CookieOptions): void;
