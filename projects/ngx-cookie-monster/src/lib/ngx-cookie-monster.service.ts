@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CookieOptions} from './cookie-options.model';
 import {CookieProvider} from './cookie-provider';
 import {ICookieOptions} from './ICookieOptions';
-import {empty, isNumber, isString, merge, safeDecodeURIComponent, safeJsonParse} from './ext';
+import {convertToDate, empty, isNumber, isString, merge, safeDecodeURIComponent, safeJsonParse} from './ext';
 
 declare interface Document {
   cookie: string;
@@ -28,6 +28,7 @@ export class NgxCookieMonsterService implements ICookieOptions{
   }
 
   addTime(key: string, time: number | string | Date): void {
+
   }
 
   create(key: string, value: string, options?: CookieOptions): void {
@@ -70,14 +71,14 @@ export class NgxCookieMonsterService implements ICookieOptions{
   private _cookieReader(): Object {
     let lastCookies = {};
     let lastCookieString = '';
-    let cookieArray: string[], cookie: string, i: number, index: number, name: string;
+    let cookie: string, index: number, name: string;
     const currentCookieString = this.cookieString;
     if (currentCookieString !== lastCookieString) {
       lastCookieString = currentCookieString;
-      cookieArray = lastCookieString.split('; ');
       lastCookies = {};
-      for (i = 0; i < cookieArray.length; i++) {
-        cookie = cookieArray[i];
+
+      lastCookieString.split('; ').forEach(value => {
+        cookie = value;
         index = cookie.indexOf('=');
         if (index > 0) {
           name = safeDecodeURIComponent(cookie.substring(0, index));
@@ -85,7 +86,7 @@ export class NgxCookieMonsterService implements ICookieOptions{
             (<any>lastCookies)[name] = safeDecodeURIComponent(cookie.substring(index + 1));
           }
         }
-      }
+      });
     }
     return lastCookies;
   }
@@ -105,9 +106,7 @@ export class NgxCookieMonsterService implements ICookieOptions{
       expires = 'Thu, 01 Jan 1970 00:00:00 GMT';
       value = '';
     }
-    if (isString(expires) || isNumber(expires)) {
-      expires = new Date(expires);
-    }
+    expires = convertToDate(expires);
     const cookieValue = opts.storeUnencoded ? value : encodeURIComponent(value);
     let str = encodeURIComponent(name) + '=' + cookieValue;
     str += opts.path ? ';path=' + opts.path : '';
