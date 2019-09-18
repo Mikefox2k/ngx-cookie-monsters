@@ -1,9 +1,9 @@
-export interface Options {
+export interface CookieOptions {
   domain?: string;
   path?: string;
   expires?: string | number | Date;
-  secure?: false;
-  httpOnly?: false;
-  storeEncoded?: false;
+  secure?: boolean;
+  httpOnly?: boolean;
+  storeEncoded?: boolean;
   sameSite?: 'none' | 'lax' | 'strict';
 }
