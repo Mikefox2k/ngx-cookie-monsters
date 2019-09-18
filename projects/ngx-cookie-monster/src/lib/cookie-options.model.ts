@@ -4,6 +4,6 @@ export interface CookieOptions {
   expires?: string | number | Date;
   secure?: boolean;
   httpOnly?: boolean;
-  storeEncoded?: boolean;
+  storeUnencoded?: boolean;
   sameSite?: 'none' | 'lax' | 'strict';
 }
