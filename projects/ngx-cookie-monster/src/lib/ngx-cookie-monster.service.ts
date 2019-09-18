@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CookieOptions} from './cookie-options.model';
 import {CookieProvider} from './cookie-provider';
 import {ICookieOptions} from './ICookieOptions';
-import {convertToDate, empty, isNumber, isString, merge, safeDecodeURIComponent, safeJsonParse} from './ext';
+import {convertToDate, empty, merge, safeDecodeURIComponent, safeJsonParse} from './ext';
 
 declare interface Document {
   cookie: string;
@@ -11,9 +11,13 @@ declare interface Document {
 declare const document: Document;
 
 @Injectable()
-export class NgxCookieMonsterService implements ICookieOptions{
+export class NgxCookieMonsterService implements ICookieOptions {
 
   protected options: CookieOptions;
+
+  constructor(private _provider: CookieProvider) {
+    this.options = this._provider.cookieOptions;
+  }
 
   protected get cookieString(): string {
     return document.cookie || '';
@@ -21,10 +25,6 @@ export class NgxCookieMonsterService implements ICookieOptions{
 
   protected set cookieString(val: string) {
     document.cookie = val;
-  }
-
-  constructor(private _provider: CookieProvider) {
-    this.options = this._provider.cookieOptions;
   }
 
   addTime(key: string, time: number | string | Date): void {
@@ -51,11 +51,11 @@ export class NgxCookieMonsterService implements ICookieOptions{
   }
 
   get(key: string): string {
-    return (<any>this._cookieReader())[key];
+    return (<any> this._cookieReader())[key];
   }
 
   getAll(): Object {
-    return <any>this._cookieReader();
+    return <any> this._cookieReader();
   }
 
   getObject(key: string): Object {
@@ -82,8 +82,8 @@ export class NgxCookieMonsterService implements ICookieOptions{
         index = cookie.indexOf('=');
         if (index > 0) {
           name = safeDecodeURIComponent(cookie.substring(0, index));
-          if (empty((<any>lastCookies)[name])) {
-            (<any>lastCookies)[name] = safeDecodeURIComponent(cookie.substring(index + 1));
+          if (empty((<any> lastCookies)[name])) {
+            (<any> lastCookies)[name] = safeDecodeURIComponent(cookie.substring(index + 1));
           }
         }
       });
@@ -94,7 +94,7 @@ export class NgxCookieMonsterService implements ICookieOptions{
   private _cookieWriter() {
     const self = this;
 
-    return function (name: string, value: string, options?: CookieOptions) {
+    return function(name: string, value: string, options?: CookieOptions) {
       self.cookieString = self._buildCookieString(name, value, options);
     };
   }
