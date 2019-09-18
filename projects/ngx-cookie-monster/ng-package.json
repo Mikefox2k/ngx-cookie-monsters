@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ngx-cookie-monster",
+  "lib": {
+    "entryFile": "src/lib.ts"
+  }
+}
