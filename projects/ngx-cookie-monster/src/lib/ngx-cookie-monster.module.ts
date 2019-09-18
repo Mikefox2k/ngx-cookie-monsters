@@ -1,11 +1,11 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CookieOptions } from './cookie-options.model';
-import {COOKIE_OPTIONS, CookieProvider} from './cookie-provider';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {CookieOptions} from './ngx-cookie-monster-options.model';
+import {COOKIE_OPTIONS, NgxCookieMonsterProvider} from './ngx-cookie-monster-provider';
 import {NgxCookieMonsterService} from './ngx-cookie-monster.service';
-import {cookieFactory} from './cookie-factory';
+import {ngxCookieMonsterFactory} from './ngx-cookie-monster-factory';
 
 @NgModule({
-  providers: [CookieProvider]
+  providers: [NgxCookieMonsterProvider]
 })
 export class CookieModule {
   /**
@@ -16,7 +16,7 @@ export class CookieModule {
       ngModule: CookieModule,
       providers: [
         {provide: COOKIE_OPTIONS, useValue: options},
-        {provide: NgxCookieMonsterService, useFactory: cookieFactory, deps: [CookieProvider]}
+        {provide: NgxCookieMonsterService, useFactory: ngxCookieMonsterFactory, deps: [NgxCookieMonsterProvider]}
       ]
     };
   }
@@ -29,7 +29,7 @@ export class CookieModule {
       ngModule: CookieModule,
       providers: [
         {provide: COOKIE_OPTIONS, useValue: options},
-        {provide: NgxCookieMonsterService, useFactory: cookieFactory, deps: [CookieProvider]}
+        {provide: NgxCookieMonsterService, useFactory: ngxCookieMonsterFactory, deps: [NgxCookieMonsterProvider]}
       ]
     };
   }

@@ -1,4 +1,4 @@
-import {CookieOptions} from './cookie-options.model';
+import {CookieOptions} from './ngx-cookie-monster-options.model';
 
 export function empty(item: any): boolean {
   return item === null && item === undefined;
@@ -6,14 +6,6 @@ export function empty(item: any): boolean {
 
 export function exists(item: any): boolean {
   return item !== null && item !== undefined;
-}
-
-export function isString(item: any): boolean {
-  return typeof item === 'string';
-}
-
-export function isNumber(item: any): boolean {
-  return typeof item === 'number';
 }
 
 export function convertToDate(time: number | string): Date {

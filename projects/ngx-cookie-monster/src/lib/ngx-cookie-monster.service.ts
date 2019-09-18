@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {CookieOptions} from './cookie-options.model';
-import {CookieProvider} from './cookie-provider';
-import {ICookieOptions} from './ICookieOptions';
-import {convertToDate, empty, merge, safeDecodeURIComponent, safeJsonParse} from './ext';
+import {CookieOptions} from './ngx-cookie-monster-options.model';
+import {NgxCookieMonsterProvider} from './ngx-cookie-monster-provider';
+import {NgxCookieMonsterICookieOptions} from './ngx-cookie-monster-ICookieOptions';
+import {convertToDate, empty, merge, safeDecodeURIComponent, safeJsonParse} from './ngx-cookie-monster-ext';
 
 declare interface Document {
   cookie: string;
@@ -11,11 +11,11 @@ declare interface Document {
 declare const document: Document;
 
 @Injectable()
-export class NgxCookieMonsterService implements ICookieOptions {
+export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
 
   protected options: CookieOptions;
 
-  constructor(private _provider: CookieProvider) {
+  constructor(private _provider: NgxCookieMonsterProvider) {
     this.options = this._provider.cookieOptions;
   }
 
@@ -25,10 +25,6 @@ export class NgxCookieMonsterService implements ICookieOptions {
 
   protected set cookieString(val: string) {
     document.cookie = val;
-  }
-
-  addTime(key: string, time: number | string | Date): void {
-
   }
 
   create(key: string, value: string, options?: CookieOptions): void {

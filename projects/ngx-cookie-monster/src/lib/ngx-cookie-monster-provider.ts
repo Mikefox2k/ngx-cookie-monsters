@@ -1,15 +1,14 @@
-import {CookieOptions} from './cookie-options.model';
+import {CookieOptions} from './ngx-cookie-monster-options.model';
 import {Inject, Injectable, InjectionToken, Injector, Type} from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
-import {merge} from './ext';
+import {merge} from './ngx-cookie-monster-ext';
 
 export const COOKIE_OPTIONS = new InjectionToken<CookieOptions>('COOKIE_OPTIONS');
 
 @Injectable()
-export class CookieProvider {
+export class NgxCookieMonsterProvider {
 
   private defaultCookieOptions: CookieOptions;
-  private _cookieOptions: CookieOptions;
 
   constructor(@Inject(COOKIE_OPTIONS) options: CookieOptions = {}, private _injector: Injector) {
     this.defaultCookieOptions = {
@@ -23,6 +22,8 @@ export class CookieProvider {
 
     this._cookieOptions = merge(this.defaultCookieOptions, options);
   }
+
+  private _cookieOptions: CookieOptions;
 
   get cookieOptions(): CookieOptions {
     return this._cookieOptions;
