@@ -1,6 +1,6 @@
 {
   "name": "cookie-monster",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,19 +9,44 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mikefox2k/ngx-cookie-monster.git"
+  },
+  "keywords": [
+    "angular2",
+    "angular",
+    "ng2",
+    "ng",
+    "ngx",
+    "cookie",
+    "cookies",
+    "angular2-cookie",
+    "angular2-cookies",
+    "ng2-cookie",
+    "ng2-cookies",
+    "ng-cookies",
+    "ng-cookie",
+    "ngx-cookie",
+    "ngx-cookies",
+    "ngx-cookie-monster",
+    "ngx-cookies-monster"
+  ],
+  "author": "Mikey Rutt <mikey.rutt00@gmail.com>",
+  "license": "MIT",
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.2.0",
-    "@angular/common": "~8.2.0",
-    "@angular/compiler": "~8.2.0",
-    "@angular/core": "~8.2.0",
-    "@angular/forms": "~8.2.0",
-    "@angular/platform-browser": "~8.2.0",
-    "@angular/platform-browser-dynamic": "~8.2.0",
-    "@angular/router": "~8.2.0",
-    "rxjs": "~6.4.0",
+    "@angular/animations": "^8.2.0",
+    "@angular/common": "^8.2.0",
+    "@angular/compiler": "^8.2.0",
+    "@angular/core": "^8.2.0",
+    "@angular/forms": "^8.2.0",
+    "@angular/platform-browser": "^8.2.0",
+    "@angular/platform-browser-dynamic": "^8.2.0",
+    "@angular/router": "^8.2.0",
+    "rxjs": "^6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.802.0",
