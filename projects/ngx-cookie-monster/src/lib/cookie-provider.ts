@@ -1,10 +1,11 @@
 import {CookieOptions} from './cookie-options.model';
-import {Inject, InjectionToken, Injector, Type} from '@angular/core';
+import {Inject, Injectable, InjectionToken, Injector, Type} from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
 import {merge} from './ext';
 
 export const COOKIE_OPTIONS = new InjectionToken<CookieOptions>('COOKIE_OPTIONS');
 
+@Injectable()
 export class CookieProvider {
 
   private defaultCookieOptions: CookieOptions;
