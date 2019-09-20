@@ -66,4 +66,12 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.getObject(key)).toEqual(value);
   }));
 
+  it('should delete cookie and exist false', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const key = 'test';
+    cookieService.create(key, 'testi');
+    expect(cookieService.exists(key)).toBeTruthy();
+    cookieService.delete(key);
+    expect(cookieService.exists(key)).toBeFalsy();
+  }));
+
 });
