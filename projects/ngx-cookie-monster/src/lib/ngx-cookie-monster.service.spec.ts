@@ -35,4 +35,11 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.get(key)).toBeUndefined();
   }));
 
+  it('should return empty value for cookie', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const key = 'emptyValue';
+    const value = '';
+    cookieService.create(key, value);
+    expect(cookieService.get(key)).toBe('');
+  }));
+
 });
