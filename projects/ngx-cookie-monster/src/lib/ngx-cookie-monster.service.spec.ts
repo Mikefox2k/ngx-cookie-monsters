@@ -29,4 +29,10 @@ describe('NgxCookieMonsterService', () => {
     cookieService.create(key, value);
     expect(cookieService.get(key)).toBe(value);
   }));
+
+  it('should return undefined for non existing cookie', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const key = 'nonExistentCookieKey';
+    expect(cookieService.get(key)).toBeUndefined();
+  }));
+
 });
