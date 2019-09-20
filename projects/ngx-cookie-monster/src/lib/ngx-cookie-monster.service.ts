@@ -27,18 +27,55 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     document.cookie = val;
   }
 
+  /**
+   * @name NgxCookieMonsterService#exists
+   *
+   * @description
+   * Evaluates if cookie exists
+   *
+   * @param key ID for lookup
+   * @returns cookie existance
+   */
   exists(key: string): boolean {
     return !!this.get(key);
   }
 
+  /**
+   * @name NgxCookieMonsterService#create
+   *
+   * @description
+   * Creates a cookie
+   *
+   * @param key ID
+   * @param value stored raw
+   * @param (optional) options object
+   */
   create(key: string, value: string, options?: CookieOptions): void {
     this._cookieWriter()(key, value, options);
   }
 
+  /**
+   * @name NgxCookieMonsterService#createFromObject
+   *
+   * @description
+   * Createa a cookie with an object of values
+   *
+   * @param key ID
+   * @param value stored serialized
+   * @param (optional) options object
+   */
   createFromObject(key: string, value: Object, options?: CookieOptions): void {
     this.create(key, JSON.stringify(value), options);
   }
 
+  /**
+   * @name NgxCookieMonsterService#delete
+   *
+   * @description
+   * removes a spezific cookie
+   *
+   * @param key ID for lookup
+   */
   delete(key: string): void {
     this._cookieWriter()(key, undefined);
   }
@@ -47,6 +84,12 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     /*future feature*/
   }
 
+  /**
+   * @name NgxCookieMonsterService#deleteAll
+   *
+   * @description
+   * deletes all cookies
+   */
   deleteAll(): void {
     const cookies = this.getAll();
     Object.keys(cookies).forEach(key => {
@@ -58,24 +101,73 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     /*future feature*/
   }
 
+  /**
+   * @name NgxCookieMonsterService#get
+   *
+   * @description
+   * Returns the value of given cookie key.
+   *
+   * @param key ID for lookup.
+   * @returns Raw cookie value as string.
+   */
   get(key: string): string {
     return (<any> this._cookieReader())[key];
   }
 
+  /**
+   * @name NgxCookieMonsterService#getAll
+   *
+   * @description
+   * Returns a key value object with all cookies
+   *
+   * @returns all cookies
+   */
   getAll(): Object {
     return <any> this._cookieReader();
   }
 
+  /**
+   * @name NgxCookieMonsterService#getObject
+   *
+   * @description
+   * Returns a deserialized Object of given cookie
+   *
+   * @param key ID for lookup
+   * @returns deserialized cookie value
+   */
   getObject(key: string): Object {
     const value = this.get(key);
     return value ? safeJsonParse(value) : value;
   }
 
+  /**
+   * @name NgxCookieMonsterService#updateOptions
+   *
+   * @description
+   * updates options of a given cookie
+   *
+   * @param key ID for lookup
+   * @param options object
+   */
   updateOptions(key: string, options?: CookieOptions): void {
     const tempCookie = this.getObject(key);
     this.createFromObject(key, tempCookie, options);
   }
 
+  /**
+   * @name NgxCookieMonsterService#createCookieOptions
+   *
+   * @description
+   * Creates an object of type CookieOptions
+   *
+   * @param domain
+   * @param path
+   * @param expires
+   * @param secure
+   * @param httpOnly
+   * @param storeUnencoded
+   * @param sameSite
+   */
   createCookieOptions(domain: string, path: string, expires: string | number | Date, secure: boolean, httpOnly: boolean,
                       storeUnencoded: boolean, sameSite: "none" | "lax" | "strict"): CookieOptions {
     return {
