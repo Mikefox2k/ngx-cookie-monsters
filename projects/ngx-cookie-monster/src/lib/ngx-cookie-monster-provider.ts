@@ -12,7 +12,7 @@ export class NgxCookieMonsterProvider {
 
   constructor(@Inject(COOKIE_OPTIONS) options: CookieOptions = {}, private _injector: Injector) {
     this.defaultCookieOptions = {
-      path: this._injector.get<string>(APP_BASE_HREF + '/' as unknown as Type<string>),
+      path: '/',
       domain: null,
       expires: null,
       secure: false,
