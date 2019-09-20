@@ -97,4 +97,24 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.getAll()).toEqual(result);
   }));
 
+  it('should delete all cookies', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const simpleCookies = [
+      {key: 'key1', value: 'value1'}, {key: 'key2', value: 'value2'},
+      {key: 'key3', value: 'value3'}
+    ];
+    const objectCookies = [
+      {key: 'keyO1', value: {keyO1_1: 'valueO1_1', keyO1_2: 'valueO1_2'}},
+      {key: 'keyO2', value: {keyO2_1: 'valueO2_1', keyO2_2: 'valueO2_2'}},
+      {key: 'keyO3', value: {keyO3_1: 'valueO3_1', keyO3_2: 'valueO3_2'}}
+    ];
+    simpleCookies.forEach(c => {
+      cookieService.create(c.key, c.value);
+    });
+    objectCookies.forEach(c => {
+      cookieService.createFromObject(c.key, c.value);
+    });
+    cookieService.deleteAll();
+    expect(cookieService.getAll()).toEqual({});
+  }));
+
 });
