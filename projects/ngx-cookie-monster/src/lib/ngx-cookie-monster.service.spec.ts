@@ -49,4 +49,14 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.getObject(key)).toBe(value);
   }));
 
+  it('should edit the cookie', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const key = 'testKey';
+    const oValue = 'old_value';
+    const nValue = 'new_value';
+    cookieService.create(key, oValue);
+    expect(cookieService.get(key)).toBe(oValue);
+    cookieService.create(key, nValue);
+    expect(cookieService.get(key)).toBe(nValue);
+  }));
+
 });
