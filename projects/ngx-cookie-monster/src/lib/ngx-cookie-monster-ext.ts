@@ -31,7 +31,6 @@ export function safeDecodeURIComponent(str: string) {
   try {
     return decodeURIComponent(str);
   } catch (e) {
-    console.error(e);
     return str;
   }
 }
@@ -40,7 +39,6 @@ export function safeJsonParse(str: string) {
   try {
     return JSON.parse(str);
   } catch (e) {
-    console.error(e);
     return str;
   }
 }
