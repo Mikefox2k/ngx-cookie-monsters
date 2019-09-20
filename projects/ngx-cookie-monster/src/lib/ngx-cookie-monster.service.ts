@@ -43,11 +43,17 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     this._cookieWriter()(key, undefined, options);
   }
 
-  deleteAll(options?: CookieOptions): void {
+  deleteOptions(key: string, options: CookieOptions): void {
+    /*future feature*/
+  }
     const cookies = this.getAll();
     Object.keys(cookies).forEach(key => {
       this.delete(key, options);
     });
+  }
+
+  deleteAllOptions(options: CookieOptions): void {
+    /*future feature*/
   }
 
   get(key: string): string {
