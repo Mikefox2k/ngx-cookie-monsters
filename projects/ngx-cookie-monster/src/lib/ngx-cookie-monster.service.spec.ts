@@ -42,4 +42,11 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.get(key)).toBe('');
   }));
 
+  it('should get as string with getObject if  cannot deserialize', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const key = 'testObject';
+    const value = 'testValue';
+    cookieService.create(key, value);
+    expect(cookieService.getObject(key)).toBe(value);
+  }));
+
 });
