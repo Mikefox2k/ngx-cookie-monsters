@@ -1,7 +1,7 @@
 import {CookieOptions} from './ngx-cookie-monster-options.model';
 
 export function empty(item: any): boolean {
-  return item === null && item === undefined;
+  return item === null || item === undefined;
 }
 
 export function exists(item: any): boolean {
