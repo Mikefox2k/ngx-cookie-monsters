@@ -27,6 +27,18 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    // customLaunchers: {
+    //   ChromeHeadless: {
+    //     base: 'Chrome',
+    //     flags: [
+    //       '--disable-translate',
+    //       '--headless',
+    //       '--disable-gpu',
+    //       '--disable-extensions',
+    //       '--remote-debugging-port=9222'
+    //     ]
+    //   }
+    // }
   });
 };

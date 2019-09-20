@@ -3,6 +3,7 @@ import {CookieOptions} from './ngx-cookie-monster-options.model';
 import {COOKIE_OPTIONS, NgxCookieMonsterProvider} from './ngx-cookie-monster-provider';
 import {NgxCookieMonsterService} from './ngx-cookie-monster.service';
 import {ngxCookieMonsterFactory} from './ngx-cookie-monster-factory';
+import {APP_BASE_HREF} from "@angular/common";
 
 @NgModule({
   providers: [NgxCookieMonsterProvider]
@@ -16,6 +17,7 @@ export class CookieModule {
       ngModule: CookieModule,
       providers: [
         {provide: COOKIE_OPTIONS, useValue: options},
+        {provide: APP_BASE_HREF, useValue: '/'},
         {provide: NgxCookieMonsterService, useFactory: ngxCookieMonsterFactory, deps: [NgxCookieMonsterProvider]}
       ]
     };
