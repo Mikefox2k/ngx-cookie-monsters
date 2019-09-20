@@ -2,6 +2,7 @@ import {inject, TestBed} from '@angular/core/testing';
 
 import {NgxCookieMonsterService} from './ngx-cookie-monster.service';
 import {CookieModule} from "./ngx-cookie-monster.module";
+import {CookieOptions} from "./ngx-cookie-monster-options.model";
 
 describe('NgxCookieMonsterService', () => {
 
@@ -72,6 +73,28 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.exists(key)).toBeTruthy();
     cookieService.delete(key);
     expect(cookieService.exists(key)).toBeFalsy();
+  }));
+
+  it('should set and get multiple cookies', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const simpleCookies = [
+      {key: 'key1', value: 'value1'}, {key: 'key2', value: 'value2'},
+      {key: 'key3', value: 'value3'}
+    ];
+    const objectCookies = [
+      {key: 'keyO1', value: {keyO1_1: 'valueO1_1', keyO1_2: 'valueO1_2'}},
+      {key: 'keyO2', value: {keyO2_1: 'valueO2_1', keyO2_2: 'valueO2_2'}},
+      {key: 'keyO3', value: {keyO3_1: 'valueO3_1', keyO3_2: 'valueO3_2'}}
+    ];
+    const result: any = {};
+    simpleCookies.forEach(c => {
+      result[c.key] = c.value;
+      cookieService.create(c.key, c.value);
+    });
+    objectCookies.forEach(c => {
+      result[c.key] = JSON.stringify(c.value);
+      cookieService.createFromObject(c.key, c.value);
+    });
+    expect(cookieService.getAll()).toEqual(result);
   }));
 
 });
