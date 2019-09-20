@@ -116,7 +116,7 @@ export class NgxCookieMonsterService implements NgxCookieMonsterICookieOptions {
     const opts: CookieOptions = merge(this.options, options);
     let expires: any = opts.expires;
     if (empty(value)) {
-      expires = '';
+      expires = 'Thu, 01 Jan 1970 00:00:01 GMT';
       value = '';
     }
     if (expires != null) expires = convertToDate(expires);
