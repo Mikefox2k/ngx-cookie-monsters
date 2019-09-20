@@ -13,7 +13,11 @@ describe('NgxCookieMonsterService', () => {
     });
   });
 
-  it('should be created', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+  afterEach(inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    cookieService.deleteAll();
+  }));
+
+  it('should be defined', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
     expect(NgxCookieMonsterService).toBeDefined();
     expect(cookieService).toBeDefined();
     expect(cookieService instanceof NgxCookieMonsterService).toBeTruthy();
