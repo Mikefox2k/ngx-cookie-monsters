@@ -117,4 +117,15 @@ describe('NgxCookieMonsterService', () => {
     expect(cookieService.getAll()).toEqual({});
   }));
 
+  it('should store unencoded cookie values if requested', inject([NgxCookieMonsterService], (cookieService: NgxCookieMonsterService) => {
+    const key = 'testCookieKey';
+    const value = 'testCookieValue=unencoded';
+    const opts: CookieOptions = {
+      storeUnencoded: true
+    };
+    cookieService.create(key, value, opts);
+    expect(document.cookie).toBe(`${key}=${value}`);
+    expect(cookieService.get(key)).toBe(value);
+  }));
+
 });
