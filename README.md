@@ -26,7 +26,7 @@
 You can install this package locally with npm.
 To get the latest stable version and update package.json file:
 ```bash
-npm install ngx-cookie-monster --save
+npm install ngx-cookie-monsters --save
 ```
 
 ### <a name="usage"></a> Usage
