@@ -1,4 +1,4 @@
-# ngx-cookie-monster
+# ngx-cookie-monsters
 >
 
 ## Table of contents:
